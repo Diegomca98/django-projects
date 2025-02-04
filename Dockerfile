@@ -1,32 +1,29 @@
-FROM python:3.10-slim
+# Use an official Python runtime as a parent image
+FROM python:3.10
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Set work directory
-WORKDIR /app
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     postgresql-client \
-    gcc && \
-    rm -rf /var/lib/apt/lists/*
+    netcat-openbsd
 
-# Copy requirements file
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file into the container
 COPY requirements.txt /app/
 
-# Install Python dependencies
+# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project
-COPY multivendor-ecommerce /app
+# Copy the rest of the application's code
+COPY . /app/
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
+# Ensure the entrypoint script is executable
+RUN chmod +x /app/entrypoint.sh
 
-# Expose port
-EXPOSE 8000
-
-# Run the app
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+# Run the application
+CMD ["/app/entrypoint.sh"]
