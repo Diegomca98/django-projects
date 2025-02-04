@@ -1,8 +1,5 @@
 # Python Django - Build Complex MultiVendor Ecommerce System
 
-> [!NOTE]
-> Branch: Development
-
 This is a multivendor Ecommerce project that uses django, geodjango and some integrations with Google APIs.
 
 <details>
@@ -20,7 +17,6 @@ To create a Custom User Model in Django we can do the following:
 
 * Create a new User model that inherits from either `AbstractBaseUser` or `AbstractUser` class, which are imported from `django.contrib.auth.models`, depending on what you want to do, here's an explanation on the difference between both inherited classes. [Creating Custom User Models](./documentation/docs/CUSTOM_USR_INHERITANCE.MD)
 * When creating a Custom User Model you too need to use a [Custom User Manager](./documentation/docs/BASE_USER_MANAGER.MD)
-
 
 ### 24. Make Password Noneditable
 
