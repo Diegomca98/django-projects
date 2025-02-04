@@ -12,7 +12,6 @@ This is a multivendor Ecommerce project that uses django, geodjango and some int
 
 </details>
 
-
 ## Section 6: Custom User Model, Media Files & Django Signals
 
 ### 23. Custom User Model
