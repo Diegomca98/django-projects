@@ -9,23 +9,23 @@ read -p "Type the number of the process you want to run: "  process
 if [ $process -eq "1" ]
 then
     # Start development environment
-    docker-compose up -d --build
+    docker compose up -d --build
 
     # > Run python commands
     ##  | Make Migrations
     ##  | Create Superuser
-    docker-compose run web python manage.py flush --no-input  # WARNING: Deletes all data
-    docker-compose run web python manage.py makemigrations
-    docker-compose run web python manage.py migrate
-    docker-compose exec web python manage.py createsuperuser
+    docker compose run web python manage.py flush --no-input  # WARNING: Deletes all data
+    docker compose run web python manage.py makemigrations
+    docker compose run web python manage.py migrate
+    docker compose exec web python manage.py createsuperuser
     
 elif [ $process -eq "2" ]
 then
-    docker-compose down
+    docker compose down --remove-orphans
 
 else
     # Stop and remove everything, including volumes and images
-    docker-compose down --rmi all --volumes --remove-orphans
+    docker compose down --rmi all --volumes --remove-orphans
 
     # Manually remove any lingering named volumes (optional)
     docker volume rm django-projects_postgres_data || true
