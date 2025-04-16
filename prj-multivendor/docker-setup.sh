@@ -2,8 +2,10 @@
 
 echo "What operation would you like to do?"
 echo "1. Start the Development Environment"
-echo "2. Remove Containers from Development Environment"
-echo "3. Completely remove service (Containers, Volumes and Images)"
+echo "2. Refresh Database (Migrations and Flush)"
+echo "3. Refresh settings (Restart Containers)"
+echo "4. Remove Containers from Development Environment"
+echo "5. Completely remove service (Containers, Volumes and Images)"
 read -p "Type the number of the process you want to run: "  process
 
 if [ $process -eq "1" ]
@@ -20,6 +22,20 @@ then
     docker compose exec web python manage.py createsuperuser
     
 elif [ $process -eq "2" ]
+then
+    echo "Refreshing database with migrations... "
+    docker compose run web python manage.py makemigrations
+    docker compose run web python manage.py migrate
+    echo "Database refresh complete!"
+
+elif [ $process -eq "3" ]
+then
+    echo "Restarting containers to apply setting changes..."
+    docker compose restart
+    echo "Containers restarted successfully!"
+
+
+elif [ $process -eq "4" ]
 then
     docker compose down --remove-orphans
 
