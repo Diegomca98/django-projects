@@ -44,7 +44,7 @@ else
     docker compose down --rmi all --volumes --remove-orphans
 
     # Manually remove any lingering named volumes (optional)
-    docker volume rm django-projects_postgres_data || true
+    # docker volume rm django-projects_postgres_data || true
 
     # Prune any remaining unused volumes
     docker volume prune -f
