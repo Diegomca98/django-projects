@@ -11,6 +11,7 @@ read -p "Type the number of the process you want to run: "  process
 if [ $process -eq "1" ]
 then
     # Start development environment
+    service postgresql stop
     docker compose up -d --build
 
     # > Run python commands
@@ -38,6 +39,7 @@ then
 elif [ $process -eq "4" ]
 then
     docker compose down --remove-orphans
+    service postgresql start
 
 else
     # Stop and remove everything, including volumes and images
@@ -48,5 +50,6 @@ else
 
     # Prune any remaining unused volumes
     docker volume prune -f
+    service postgresql start
 
 fi
